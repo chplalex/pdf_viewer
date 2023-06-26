@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:advance_pdf_viewer_fork/advance_pdf_viewer_fork.dart';
+import 'package:flutter/material.dart';
 
 void main() => runApp(App());
 
@@ -21,7 +20,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool _isLoading = true;
   PDFDocument? document;
-  bool _usePDFListView = false;
+  bool _usePDFListView = true;
 
   @override
   void initState() {
@@ -47,7 +46,7 @@ class _MyAppState extends State<MyApp> {
       document = await PDFDocument.fromAsset('assets/sample2.pdf');
     } else if (value == 2) {
       document = await PDFDocument.fromURL(
-          "http://conorlastowka.com/book/CitationNeededBook-Sample.pdf");
+          "https://www.africau.edu/images/default/sample.pdf");
     } else {
       document = await PDFDocument.fromAsset('assets/sample.pdf');
     }
@@ -113,7 +112,7 @@ class _MyAppState extends State<MyApp> {
                             // scrollDirection: Axis.vertical,
 
                             // enableSwipeNavigation: false,
-                            showPicker: false,
+                            showPicker: true,
                             showNavigation: true,
                             //uncomment below code to replace bottom navigation with your own
                             /* navigationBuilder:

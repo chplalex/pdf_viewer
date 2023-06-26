@@ -193,23 +193,29 @@ class _PDFViewerState extends State<PDFViewer> {
     showDialog<int>(
         context: context,
         builder: (BuildContext context) {
-          return NumberPicker(
-            minValue: 1,
-            maxValue: widget.document.count!,
-            value: _pageNumber!,
-            haptics: true,
-            onChanged: (int value) {
-              setState(() {
-                _pageNumber = value;
-              });
-            },
-          );
-        }).then((int? value) {
-      if (value != null) {
-        _pageNumber = value;
-        _jumpToPage();
-      }
-    });
+          return StatefulBuilder(builder: (context, dialogSetState) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                NumberPicker(
+                    value: _pageNumber!,
+                    minValue: 1,
+                    maxValue: widget.document.count!,
+                    axis: Axis.vertical,
+                    infiniteLoop: true,
+                    onChanged: (value) {
+                      setState(() {
+                        _pageNumber = value;
+                        _jumpToPage();
+                      }); //to change on widget level state
+                      dialogSetState(() =>
+                          _pageNumber = value); //* to change on dialog state
+                    }),
+              ],
+            );
+          });
+        });
   }
 
   @override

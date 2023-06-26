@@ -7,6 +7,7 @@ class PDFListViewer extends StatefulWidget {
   final bool preload;
   double? _loadingPageHeight;
 
+  /// Shows PDF of multiple pages in list mode
   PDFListViewer({
     Key? key,
     required this.document,
@@ -26,7 +27,8 @@ class _PDFListViewerState extends State<PDFListViewer> {
   @override
   void initState() {
     super.initState();
-    widget._images = List<Image?>.filled(widget.document.count!, null, growable: true);
+    widget._images =
+        List<Image?>.filled(widget.document.count!, null, growable: true);
     if (widget.preload) {
       Future.delayed(Duration.zero, () async {
         await widget.document.preloadImages();
