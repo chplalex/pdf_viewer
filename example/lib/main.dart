@@ -20,7 +20,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _isLoading = true;
-  PDFDocument document;
+  PDFDocument? document;
   bool _usePDFListView = false;
 
   @override
@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
-    document.clearImageCache();
+    document?.clearImageCache();
     document = null;
     super.dispose();
   }
@@ -80,19 +80,17 @@ class _MyAppState extends State<MyApp> {
               },
             ),
           ],
-        ),     
+        ),
       ),
       appBar: AppBar(
         title: const Text('FlutterPluginPDFViewer'),
         actions: <Widget>[
           GestureDetector(
-            onTap: (){
+            onTap: () {
               _usePDFListView = !_usePDFListView;
               setState(() {});
             },
-            child: Icon(
-              Icons.cached
-            ),
+            child: Icon(Icons.cached),
           ),
           SizedBox(
             width: 15,
@@ -102,23 +100,23 @@ class _MyAppState extends State<MyApp> {
       body: Column(
         children: <Widget>[
           !_usePDFListView
-          ? Expanded(
-              child: Center(
-                child: _isLoading
-                    ? Center(child: CircularProgressIndicator())
-                    : PDFViewer(
-                        document: document,
-                        zoomSteps: 1,
-                        //uncomment below line to preload all pages
-                        // lazyLoad: false,
-                        // uncomment below line to scroll vertically
-                        // scrollDirection: Axis.vertical,
+              ? Expanded(
+                  child: Center(
+                    child: _isLoading
+                        ? Center(child: CircularProgressIndicator())
+                        : PDFViewer(
+                            document: document!,
+                            zoomSteps: 1,
+                            //uncomment below line to preload all pages
+                            // lazyLoad: false,
+                            // uncomment below line to scroll vertically
+                            // scrollDirection: Axis.vertical,
 
-                        // enableSwipeNavigation: false,
-                        showPicker: false,
-                        showNavigation: true,
-                        //uncomment below code to replace bottom navigation with your own
-                        /* navigationBuilder:
+                            // enableSwipeNavigation: false,
+                            showPicker: false,
+                            showNavigation: true,
+                            //uncomment below code to replace bottom navigation with your own
+                            /* navigationBuilder:
                             (context, page, totalPages, jumpToPage, animateToPage) {
                           return ButtonBar(
                             alignment: MainAxisAlignment.spaceEvenly,
@@ -150,17 +148,19 @@ class _MyAppState extends State<MyApp> {
                             ],
                           );
                         }, */
-                      ),
-              ),
-            )
-          : Expanded(
-              child: _isLoading 
-                ? Center(child: CircularProgressIndicator(),)
-                : PDFListViewer(
-                    document: document,
-                    preload: true,
+                          ),
                   ),
-            ),
+                )
+              : Expanded(
+                  child: _isLoading
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : PDFListViewer(
+                          document: document!,
+                          preload: true,
+                        ),
+                ),
         ],
       ),
     );
