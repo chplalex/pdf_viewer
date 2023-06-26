@@ -12,7 +12,9 @@ class PDFViewer extends StatefulWidget {
   final bool showIndicator;
   final bool showPicker;
   final Color? pagePickerColor;
+  final bool showDialogForPagePicker;
   final bool showNavigation;
+  final bool infiniteLoopForPagePicker;
   final PDFViewerTooltip tooltip;
   final bool enableSwipeNavigation;
   final Axis? scrollDirection;
@@ -41,6 +43,8 @@ class PDFViewer extends StatefulWidget {
       this.showIndicator = true,
       this.showPicker = true,
       this.pagePickerColor,
+      this.showDialogForPagePicker = false,
+      this.infiniteLoopForPagePicker = false,
       this.showNavigation = true,
       this.enableSwipeNavigation = true,
       this.tooltip = const PDFViewerTooltip(),
@@ -161,8 +165,9 @@ class _PDFViewerState extends State<PDFViewer> {
 
   Widget _drawIndicator() {
     Widget child = GestureDetector(
-        onTap:
-            widget.showPicker && widget.document.count! > 1 ? _pickPage : null,
+        onTap: widget.showPicker && widget.document.count! > 1
+            ? _pagePicker
+            : null,
         child: Container(
             padding:
                 EdgeInsets.only(top: 4.0, left: 16.0, bottom: 4.0, right: 16.0),
@@ -189,7 +194,15 @@ class _PDFViewerState extends State<PDFViewer> {
     }
   }
 
-  _pickPage() {
+  _pagePicker() {
+    if (widget.showDialogForPagePicker) {
+      _dialogPagePicker();
+    } else {
+      _fullScreenPagePicker();
+    }
+  }
+
+  _fullScreenPagePicker() {
     showDialog<int>(
         context: context,
         builder: (BuildContext context) {
@@ -203,7 +216,7 @@ class _PDFViewerState extends State<PDFViewer> {
                     minValue: 1,
                     maxValue: widget.document.count!,
                     axis: Axis.vertical,
-                    infiniteLoop: true,
+                    infiniteLoop: widget.infiniteLoopForPagePicker,
                     onChanged: (value) {
                       setState(() {
                         _pageNumber = value;
@@ -216,6 +229,48 @@ class _PDFViewerState extends State<PDFViewer> {
             );
           });
         });
+  }
+
+  _dialogPagePicker() {
+    showDialog<int>(
+        context: context,
+        builder: (BuildContext ctx) {
+          return AlertDialog(
+            title: Text("Pick a page"),
+            content: StatefulBuilder(builder: (context, dialogSetState) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 24,
+                  ),
+                  NumberPicker(
+                      value: _pageNumber!,
+                      minValue: 1,
+                      maxValue: widget.document.count!,
+                      axis: Axis.horizontal,
+                      onChanged: (value) {
+                        // setState(() {
+                        //   _pageNumber = value;
+                        // }); //to change on widget level state
+                        dialogSetState(() =>
+                            _pageNumber = value); //* to change on dialog state
+                      }),
+                ],
+              );
+            }),
+            actions: [
+              TextButton(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _jumpToPage();
+                },
+              )
+            ],
+          );
+        },
+        barrierDismissible: false);
   }
 
   @override
@@ -254,7 +309,7 @@ class _PDFViewerState extends State<PDFViewer> {
               child: Icon(Icons.view_carousel),
               backgroundColor: widget.pagePickerColor,
               onPressed: () {
-                _pickPage();
+                _pagePicker();
               },
             )
           : null,

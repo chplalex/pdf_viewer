@@ -20,7 +20,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool _isLoading = true;
   PDFDocument? document;
-  bool _usePDFListView = true;
+  bool _usePDFListView = false;
 
   @override
   void initState() {
