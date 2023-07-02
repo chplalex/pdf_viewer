@@ -1,4 +1,4 @@
-package com.example.rpp_sample
+package com.example.chakre_pdf_viewer
 
 import io.flutter.embedding.android.FlutterActivity
 

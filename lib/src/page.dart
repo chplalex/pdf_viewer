@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:advance_pdf_viewer_fork/src/zoom.dart';
+import 'package:chakre_pdf_viewer/src/zoom.dart';
 import 'package:flutter/widgets.dart';
 
 class PDFPage extends StatefulWidget {

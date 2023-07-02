@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:advance_pdf_viewer_fork/src/zoom_utils.dart';
+import 'package:chakre_pdf_viewer/src/zoom_utils.dart';
 import 'package:flutter/widgets.dart';
 
 class CustomZoomableWidget extends StatefulWidget {

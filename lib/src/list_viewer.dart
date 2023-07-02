@@ -1,4 +1,4 @@
-import 'package:advance_pdf_viewer_fork/advance_pdf_viewer_fork.dart';
+import 'package:chakre_pdf_viewer/chakre_pdf_viewer.dart';
 import 'package:flutter/material.dart';
 
 class PDFListViewer extends StatefulWidget {

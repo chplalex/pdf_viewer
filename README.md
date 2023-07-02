@@ -1,16 +1,16 @@
-# advance_pdf_viewer_fork
+# chakre_pdf_viewer
 
-A flutter plugin for handling PDF files. Works on both Android & iOS. Originally forked from https://github.com/lohanidamodar/pdf_viewer that originally forked from https://github.com/CrossPT/flutter_plugin_pdf_viewer.
+A flutter plugin for handling PDF files. Works on both Android & iOS. Originally forked from https://github.com/anychhoice/pdf_viewer that was Originally forked from https://github.com/lohanidamodar/pdf_viewer that originally forked from https://github.com/CrossPT/flutter_plugin_pdf_viewer.
 
 
-[![Pub Package](https://img.shields.io/pub/v/advance_pdf_viewer_fork.svg?style=flat-square)](https://pub.dartlang.org/packages/advance_pdf_viewer_fork)
+[![Pub Package](https://img.shields.io/pub/v/chakre_pdf_viewer.svg?style=flat-square)](https://pub.dartlang.org/packages/chakre_pdf_viewer)
 
 
 ## Installation
 
-Add  *advance_pdf_viewer_fork*  as a dependency in [your pubspec.yaml file](https://flutter.io/platform-plugins/).
+Add  *chakre_pdf_viewer*  as a dependency in [your pubspec.yaml file](https://flutter.io/platform-plugins/).
 ```
-advance_pdf_viewer_fork: any
+chakre_pdf_viewer: any
 ```
 
 ---
