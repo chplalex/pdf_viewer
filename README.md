@@ -63,6 +63,36 @@ This code produces the following view:
 
 <img height="500px" src="https://raw.githubusercontent.com/lohanidamodar/pdf_viewer/master/demo.png" alt="Demo Screenshot 1"/>
 
+
+
+#### Fixes and changes from [advance_pdf_viewer_fork](https://pub.dev/packages/advance_pdf_viewer_fork) :
+Fixed Page Picker 
+
+<img height="500px" src="https://raw.githubusercontent.com/UmeshChakre/pdf_viewer/fix/run_example/demo.png" alt="Demo Screenshot 1"/>
+
+Show Page Picker on dialog
+
+```
+@override
+  Widget build(BuildContext context) {
+    Scaffold(
+        appBar: AppBar(
+          title: Text('Example'),
+        ),
+        body: Center(
+        child: _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : PDFViewer(
+                            document: document!,
+                            showNavigation: true,
+                            showDialogForPagePicker: true,
+                          ),
+    );
+  }
+```
+<img height="500px" src="https://raw.githubusercontent.com/UmeshChakre/pdf_viewer/fix/run_example/demo2.png" alt="Demo Screenshot 1"/>
+
+
 ---
 
 ## TODO
