@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
   changePDF(value) async {
     setState(() => _isLoading = true);
     if (value == 1) {
-      document = await PDFDocument.fromAsset('assets/sample3.pdf');
+      document = await PDFDocument.fromAsset('assets/sample2.pdf');
     } else if (value == 2) {
       document = await PDFDocument.fromURL(
           "https://www.africau.edu/images/default/sample.pdf");
