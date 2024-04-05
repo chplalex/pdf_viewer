@@ -3,6 +3,9 @@
 ## 1.0.1
 
 - Depricated API warning removed
+- updating the SDK constraint to:
+  environment:
+  sdk: '>=2.17.0 <4.0.0'
 
 ## 1.0.0
 
