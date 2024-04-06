@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3
+
+- IOS podfile not found fixed
+
 ## 1.0.1
 
 - Depricated API warning removed
