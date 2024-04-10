@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.4
+
+- Picker text colors and size implementation
+- show picker : false , no longer disables indicator tap 
+
 ## 1.0.3
 
 - IOS podfile not found fixed
