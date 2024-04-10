@@ -9,8 +9,25 @@ class PDFViewer extends StatefulWidget {
   final Color indicatorText;
   final Color indicatorBackground;
   final IndicatorPosition indicatorPosition;
+
+  /// Page indicator
   final bool showIndicator;
+
+  /// Picker FAB
   final bool showPicker;
+
+  /// Picker Selected Text Color
+  final Color? pickerSelectedTextColor;
+
+  /// Picker Text Color
+  final Color? pickerTextColor;
+
+  /// Picker selected Text Font size
+  final double? pickerSelectedFontSize;
+
+  /// Picker Text Font size
+  final double? pickerFontSize;
+
   final Color? pagePickerColor;
   final bool showDialogForPagePicker;
   final bool showNavigation;
@@ -40,9 +57,31 @@ class PDFViewer extends StatefulWidget {
       this.lazyLoad = true,
       this.indicatorText = Colors.white,
       this.indicatorBackground = Colors.black54,
+
+      /// Page indicator
       this.showIndicator = true,
+
+      /// Picker FAB
       this.showPicker = true,
+
+      ///Picker Selcted text color
+      this.pickerSelectedTextColor,
+
+      /// Picker Text color
+      this.pickerTextColor,
+
+      /// Picker selected font size
+      this.pickerSelectedFontSize,
+
+      /// Picker font size
+      this.pickerFontSize,
+
+      /// Page Picker FAB color
       this.pagePickerColor,
+
+      /// Show Dialog for Picker
+      ///
+      /// default false
       this.showDialogForPagePicker = false,
       this.infiniteLoopForPagePicker = false,
       this.showNavigation = true,
@@ -165,9 +204,7 @@ class _PDFViewerState extends State<PDFViewer> {
 
   Widget _drawIndicator() {
     Widget child = GestureDetector(
-        onTap: widget.showPicker && widget.document.count! > 1
-            ? _pagePicker
-            : null,
+        onTap: widget.document.count! > 1 ? _pagePicker : null,
         child: Container(
             padding:
                 EdgeInsets.only(top: 4.0, left: 16.0, bottom: 4.0, right: 16.0),
@@ -211,20 +248,34 @@ class _PDFViewerState extends State<PDFViewer> {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                NumberPicker(
-                    value: _pageNumber!,
-                    minValue: 1,
-                    maxValue: widget.document.count!,
-                    axis: Axis.vertical,
-                    infiniteLoop: widget.infiniteLoopForPagePicker,
-                    onChanged: (value) {
-                      setState(() {
-                        _pageNumber = value;
-                        _jumpToPage();
-                      }); //to change on widget level state
-                      dialogSetState(() =>
-                          _pageNumber = value); //* to change on dialog state
-                    }),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.5),
+                      borderRadius: BorderRadius.all(Radius.circular(24))),
+                  child: NumberPicker(
+                      selectedTextStyle: TextStyle(
+                          color: widget.pickerSelectedTextColor ??
+                              Colors.brown[700],
+                          fontWeight: FontWeight.w900,
+                          fontSize: widget.pickerSelectedFontSize ?? 28),
+                      textStyle: TextStyle(
+                          color: widget.pickerTextColor ?? Colors.blueGrey[600],
+                          fontWeight: FontWeight.bold,
+                          fontSize: widget.pickerFontSize ?? 18),
+                      value: _pageNumber!,
+                      minValue: 1,
+                      maxValue: widget.document.count!,
+                      axis: Axis.vertical,
+                      infiniteLoop: widget.infiniteLoopForPagePicker,
+                      onChanged: (value) {
+                        setState(() {
+                          _pageNumber = value;
+                          _jumpToPage();
+                        }); //to change on widget level state
+                        dialogSetState(() =>
+                            _pageNumber = value); //* to change on dialog state
+                      }),
+                ),
               ],
             );
           });
@@ -249,6 +300,15 @@ class _PDFViewerState extends State<PDFViewer> {
                       minValue: 1,
                       maxValue: widget.document.count!,
                       axis: Axis.horizontal,
+                      selectedTextStyle: TextStyle(
+                          color: widget.pickerSelectedTextColor ??
+                              Colors.brown[700],
+                          fontWeight: FontWeight.w900,
+                          fontSize: widget.pickerSelectedFontSize ?? 32),
+                      textStyle: TextStyle(
+                          color: widget.pickerTextColor ?? Colors.blueGrey[600],
+                          fontWeight: FontWeight.bold,
+                          fontSize: widget.pickerFontSize ?? 22),
                       onChanged: (value) {
                         // setState(() {
                         //   _pageNumber = value;
