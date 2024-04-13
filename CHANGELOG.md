@@ -1,9 +1,14 @@
 # Changelog
 
+## 1.1.0
+
+- Zoom added in PDF list viewer
+- warnings and lint errors fixed
+
 ## 1.0.4
 
 - Picker text colors and size implementation
-- show picker : false , no longer disables indicator tap 
+- show picker : false , no longer disables indicator tap
 
 ## 1.0.3
 
