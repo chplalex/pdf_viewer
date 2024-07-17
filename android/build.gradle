@@ -1,4 +1,5 @@
 group 'pt.tribeiro.flutter_pdf_viewer'
+
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -23,15 +24,34 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 28
-    namespace group
+
+    if (project.android.hasProperty("namespace")) {
+        namespace = group
+    }
+
     defaultConfig {
         minSdkVersion 21
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     lintOptions {
         disable 'InvalidPackage'
     }
+
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
 }
+
+task setupManifest {
+    doLast {
+        def manifestFile = file("$projectDir/src/main/AndroidManifest.xml")
+        if (project.android.hasProperty("namespace")) {
+            manifestFile.text = "<manifest />"
+        } else {
+            manifestFile.text = "<manifest package=\"${project["group"]}\" />"
+        }
+    }
+}
+
+preBuild.dependsOn(setupManifest)
