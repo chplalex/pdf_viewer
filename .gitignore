@@ -9,4 +9,5 @@ example/ios/Flutter/flutter_export_environment.sh
 example/.flutter-plugins-dependencies
 android/.idea/
 .fvm
+.fvmrc
 .idea
